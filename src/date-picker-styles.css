@@ -1,7 +1,8 @@
 :root {
     --rdp-cell-size: 32px;
-    --rdp-accent-color: #0000ff;
+    --rdp-accent-color: #3366FF;
     --rdp-background-color: #e7edff;
+    --rdp-background-hover: #E6E8F0;
     /* Switch to dark colors for dark themes */
     --rdp-accent-color-dark: #3003e1;
     --rdp-background-color-dark: #180270;
@@ -139,7 +140,7 @@
     border: 0;
     border: 2px solid transparent;
     font-family: inherit;
-    font-size: 140%;
+    font-size: 12px;
     font-weight: bold;
 }
 
@@ -259,6 +260,7 @@
 
 .rdp-weeknumber,
 .rdp-day {
+    cursor: pointer;
     display: flex;
     overflow: hidden;
     align-items: center;
@@ -269,11 +271,25 @@
     height: var(--rdp-cell-size);
     margin: 0;
     border: 2px solid transparent;
-    border-radius: 100%;
+    border-radius: 4px;
+}
+
+.rdp-day:hover {
+    background-color: var(--rdp-background-hover);
+}
+
+.rdp-day:active {
+    background-color: var(--rdp-accent-color);
+    color: #fff;
 }
 
 .rdp-day_today:not(.rdp-day_outside) {
     font-weight: bold;
+    color: var(--rdp-accent-color);
+}
+
+.rdp-day[disabled] {
+    color: #C1C4D6;
 }
 
 .rdp-day_selected:not([disabled]),

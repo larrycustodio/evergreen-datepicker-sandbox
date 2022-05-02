@@ -1,7 +1,6 @@
 import {CalendarIcon, IconButton, majorScale, minorScale, Pane, TextInput, useTheme} from "evergreen-ui";
 import React, {FC, useRef, useState} from "react";
 import {DayPicker} from "react-day-picker";
-import FocusTrap from 'focus-trap-react';
 import {usePopper} from 'react-popper';
 import {format} from "date-fns";
 import './date-picker-styles.css';
@@ -16,7 +15,7 @@ export const Datepicker: FC<Props> = ({disabled, label}) => {
     const [startDate, setStartDate] = useState<Date>()
     const [endDate, setEndDate] = useState<Date>()
 
-    const [startDatepickerOpen, setStartDatepickerOpen] = useState<boolean>(true)
+    const [startDatepickerOpen, setStartDatepickerOpen] = useState<boolean>(false)
     const [endDatepickerOpen, setEndDatepickerOpen] = useState<boolean>(false)
 
     const popperRef = useRef<HTMLDivElement>(null);
@@ -39,6 +38,7 @@ export const Datepicker: FC<Props> = ({disabled, label}) => {
     }
 
     const selectStartDate = (date: Date | undefined): void => {
+        console.log({date})
         if (date) {
             setStartDate(new Date(format(date, 'mm/dd/yyyy')));
             closeStartDatepicker();
@@ -46,7 +46,7 @@ export const Datepicker: FC<Props> = ({disabled, label}) => {
     }
 
     const handleBlur = () => {
-        // closeStartDatepicker()
+        closeStartDatepicker()
     }
 
     return (
@@ -65,10 +65,11 @@ export const Datepicker: FC<Props> = ({disabled, label}) => {
                     />
                     {
                         startDatepickerOpen && (
-                            <Pane position="absolute" marginTop={minorScale(1)} zIndex="2" onBlur={handleBlur}>
+                            <Pane position="absolute" marginTop={minorScale(1)} zIndex="2">
                                 <DayPicker
                                     initialFocus={startDatepickerOpen}
-                                    fromYear={2015} toYear={2025} captionLayout="dropdown"                                    defaultMonth={startDate}
+                                    fromYear={2015} toYear={2025} captionLayout="dropdown"
+                                    defaultMonth={startDate}
                                     selected={startDate}
                                     onSelect={selectStartDate}
                                 />
@@ -83,7 +84,7 @@ export const Datepicker: FC<Props> = ({disabled, label}) => {
                         disabled={disabled}
                         icon={CalendarIcon}
                         appearance="minimal"
-                        aria-label="Pick a start date"
+                        aria-label="Pick an end date"
                     />
                 </Pane>
             </Pane>
