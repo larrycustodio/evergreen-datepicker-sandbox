@@ -32,21 +32,35 @@ export const Datepicker: FC<Props> = ({disabled, label}) => {
         setStartDatepickerOpen(true)
     }
 
-    const closeStartDatepicker = (): void => {
-        setStartDatepickerOpen(false)
-        buttonRef?.current?.focus();
-    }
 
     const selectStartDate = (date: Date | undefined): void => {
-        console.log({date})
         if (date) {
-            setStartDate(new Date(format(date, 'mm/dd/yyyy')));
-            closeStartDatepicker();
+            // setStartDate(new Date(format(date, 'mm/dd/yyyy')));
+            setStartDatepickerOpen(false);
         }
     }
 
-    const handleBlur = () => {
-        closeStartDatepicker()
+    const handleBlurStartDate = (e: any): void => {
+        if (!e.currentTarget.contains(e.relatedTarget)) {
+            setStartDatepickerOpen(false);
+        }
+    }
+
+    const openEndDatepicker = (): void => {
+        setEndDatepickerOpen(true)
+    }
+
+    const handleBlurEndDate = (e: any): void => {
+        if (!e.currentTarget.contains(e.relatedTarget)) {
+            setEndDatepickerOpen(false);
+        }
+    }
+
+    const selectEndDate = (date: Date | undefined): void => {
+        if (date) {
+            // setStartDate(new Date(format(date, 'mm/dd/yyyy')));
+            setEndDatepickerOpen(false);
+        }
     }
 
     return (
@@ -62,30 +76,54 @@ export const Datepicker: FC<Props> = ({disabled, label}) => {
                         appearance="minimal"
                         aria-label="Pick a start date"
                         onClick={openStartDatepicker}
+                        size="small"
+                        position="absolute"
+                        top="50%"
+                        right={`${minorScale(1)}px`}
+                        transform="translateY(-50%)"
                     />
                     {
                         startDatepickerOpen && (
-                            <Pane position="absolute" marginTop={minorScale(1)} zIndex="2">
+                            <Pane position="absolute" marginTop={minorScale(1)} zIndex="2" onBlur={handleBlurStartDate}>
                                 <DayPicker
                                     initialFocus={startDatepickerOpen}
                                     fromYear={2015} toYear={2025} captionLayout="dropdown"
                                     defaultMonth={startDate}
                                     selected={startDate}
-                                    onSelect={selectStartDate}
+                                    onDayClick={selectStartDate}
                                 />
                             </Pane>
                         )
                     }
                 </Pane>
                 <Pane color={theme.colors.gray800}>-</Pane>
-                <Pane>
+                <Pane position="relative">
                     <TextInput width={majorScale(16)} placeholder="mm/dd/yyyy" disabled={disabled}/>
                     <IconButton
                         disabled={disabled}
                         icon={CalendarIcon}
                         appearance="minimal"
                         aria-label="Pick an end date"
+                        size="small"
+                        position="absolute"
+                        top="50%"
+                        right={`${minorScale(1)}px`}
+                        transform="translateY(-50%)"
+                        onClick={openEndDatepicker}
                     />
+                    {
+                        endDatepickerOpen && (
+                            <Pane position="absolute" marginTop={minorScale(1)} zIndex="2" onBlur={handleBlurEndDate}>
+                                <DayPicker
+                                    initialFocus={endDatepickerOpen}
+                                    fromYear={2015} toYear={2025} captionLayout="dropdown"
+                                    defaultMonth={startDate}
+                                    selected={startDate}
+                                    onDayClick={selectEndDate}
+                                />
+                            </Pane>
+                        )
+                    }
                 </Pane>
             </Pane>
         </Pane>

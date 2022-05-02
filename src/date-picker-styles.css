@@ -70,15 +70,16 @@
     cursor: pointer;
 }
 
-.rdp-button:focus:not([disabled]),
-.rdp-button:active:not([disabled]) {
-    color: inherit;
-    border: var(--rdp-outline);
-    background-color: var(--rdp-background-color);
-}
-
 .rdp-button:hover:not([disabled]) {
     background-color: var(--rdp-background-color);
+    color: #101840;
+}
+
+.rdp-button:focus:not([disabled]),
+.rdp-button:active:not([disabled]) {
+    color: #ffffff;
+    /*border: var(--rdp-outline);*/
+    background-color: var(--rdp-accent-color);
 }
 
 .rdp-months {
