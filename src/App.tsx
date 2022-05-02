@@ -1,26 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {Heading, majorScale, minorScale, Pane, TextInput} from 'evergreen-ui'
+import {Datepicker} from './datepicker-proto'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Pane className="App" margin={majorScale(3)}>
+            <header className="App-header">
+                <Heading marginBottom={majorScale(2)}>
+                    Datepicker Prototype
+                </Heading>
+                <Pane marginBottom={majorScale(2)}>
+                    <Datepicker label="Default"/>
+                </Pane>
+                {/*<Pane marginBottom={majorScale(1)}>*/}
+                {/*    <Datepicker label="Disabled" disabled/>*/}
+                {/*</Pane>*/}
+            </header>
+        </Pane>
+    );
 }
 
 export default App;
